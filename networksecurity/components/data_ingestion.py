@@ -1,6 +1,6 @@
 import os
 import sys
-from networksecurity.exception import NetworkSecurityException
+from networksecurity.exception.exception import NetworkSecurityException
 from networksecurity.logging.logger import logging
 
 from networksecurity.entity.config_entity import DataIngestionConfig
@@ -36,7 +36,7 @@ class DataIngestion:
             if "_id" in df.columns:
                 df = df.drop(columns=["_id"],axis=1)
 
-            df.replace(to_replace="na",value=np.NAN,inplace=True)
+            df.replace(to_replace="na",value=np.nan,inplace=True)
             return df
 
         except Exception as e:
@@ -55,7 +55,7 @@ class DataIngestion:
         
     def split_data_as_train_test(self, df:pd.DataFrame):
         try:
-            train_set, test_set = train_test_split(df, test_size=self.data_ingestion_config.train_test_split_ratio)
+            train_set, test_set = train_test_split(df, test_size=self.data_ingestion_config.train_test_split_ratio, random_state= 42)
             logging.info("Performed Train Test Split")
 
             dir_path = os.path.dirname(self.data_ingestion_config.train_file_path)

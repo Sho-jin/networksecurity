@@ -1,4 +1,4 @@
-from networksecurity.exception import NetworkSecurityException
+from networksecurity.exception.exception import NetworkSecurityException
 from networksecurity.logging.logger import logging
 from networksecurity.components.data_ingestion import DataIngestion
 from networksecurity.entity.config_entity import DataIngestionConfig
@@ -7,7 +7,7 @@ from networksecurity.entity.config_entity import trainingPipelineConfig
 
 import sys
 
-if __name__ =="main":
+if __name__ =="__main__":
     try:
         training_pipeline_config = trainingPipelineConfig()
         data_ingestion_config = DataIngestionConfig(training_pipeline_config)
