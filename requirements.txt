@@ -7,5 +7,6 @@ matplotlib
 pymongo[srv]==3.12
 certifi
 pyaml
+mlflow
 
 -e . 

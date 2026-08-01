@@ -12,6 +12,7 @@ Requires-Dist: matplotlib
 Requires-Dist: pymongo[srv]==3.12
 Requires-Dist: certifi
 Requires-Dist: pyaml
+Requires-Dist: mlflow
 Dynamic: author
 Dynamic: author-email
 Dynamic: requires-dist
