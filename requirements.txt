@@ -9,5 +9,8 @@ certifi
 pyaml
 mlflow
 dagshub
+fastapi
+uvicorn
+Flask
 
 -e . 
