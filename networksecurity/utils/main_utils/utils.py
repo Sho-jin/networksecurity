@@ -7,6 +7,8 @@ import numpy as np
 import pickle
 
 from sklearn.metrics import r2_score
+from sklearn.model_selection import GridSearchCV
+from sklearn.metrics import accuracy_score
 
 
 def read_yaml_file(file_path) -> dict:
@@ -60,24 +62,35 @@ def load_numpy_array_data(file_path: str) -> np.ndarray:
     except Exception as e:
         raise NetworkSecurityException(e, sys)
     
-def evaluate_models(X_train, y_train, X_test, y_test, models: dict, params: dict) -> dict:
+def evaluate_models(X_train, y_train, X_test, y_test, models, param) -> dict:
     try:
         report = {}
-        for i in range(len(list(models))):
-            model_name = list(models.keys())[i]
-            model = list(models.values())[i]
-            param = params[model_name]
+        
 
-            model.set_params(**gs.best_params_)
-            model.fit(X_train, y_train)
+        for model_name, model in models.items():
 
-            y_train_pred = model.predict(X_train)
-            y_test_pred = model.predict(X_test)
+            model_param = param.get(model_name, {})
 
-            train_model_score = r2_score(y_train, y_train_pred)
-            test_model_score = r2_score(y_test, y_test_pred)
+            gs = GridSearchCV(
+                estimator=model,
+                param_grid=model_param,
+                cv=3,
+                n_jobs=-1
+            )
 
-            report[list(models.keys())[i]] = test_model_score
+            gs.fit(X_train, y_train)
+
+            best_model = gs.best_estimator_
+
+            best_model.fit(X_train, y_train) 
+
+            y_train_pred = best_model.predict(X_train)
+            y_test_pred = best_model.predict(X_test)
+
+            train_score = accuracy_score(y_train, y_train_pred)
+            test_score = accuracy_score(y_test, y_test_pred)
+
+            report[model_name] = test_score
         return report
     except Exception as e:
         raise NetworkSecurityException(e, sys)

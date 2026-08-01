@@ -41,7 +41,8 @@ class ModelTrainer:
            params = {
                 "LogisticRegression": {},
                 "DecisionTreeClassifier": {
-                    'criterion': ['gini', 'entropy', 'log_loss']
+                        "criterion": ["gini", "entropy"],
+                        "max_depth": [5, 10, 15]
                 },
                 "KNeighborsClassifier": {
                      'n_neighbors': [3, 5, 7],
@@ -62,13 +63,15 @@ class ModelTrainer:
                 }
               }
            
-           model_report:dict = evaluate_models(x_train=x_train, y_train=y_train, x_test=x_test, y_test=y_test, models=models, param=params)
+           model_report:dict = evaluate_models(x_train,y_train,x_test,y_test,models,params)
 
            best_model_score = max(sorted(model_report.values()))
 
            best_model_name = list(model_report.keys())[list(model_report.values()).index(best_model_score)]
 
            best_model = models[best_model_name]
+
+           best_model.fit(x_train, y_train)
 
            y_train_pred = best_model.predict(x_train)
 
@@ -94,7 +97,7 @@ class ModelTrainer:
                 test_metric_path=classification_test_metric
            )
 
-           logging.info(f"Model Trainer Artifact: {ModelTrainerArtifact}")
+           logging.info(f"Model Trainer Artifact: {model_trainer_artifact}")
            return model_trainer_artifact
         except Exception as e:
             raise NetworkSecurityException(e, sys)
@@ -114,20 +117,11 @@ class ModelTrainer:
                 test_arr[:, -1]
             )
 
-            model = self.train_model(x_train, y_train)
-            model.fit(x_train, y_train)
-
-            y_pred = model.predict(x_test)
-
-            classification_metric_artifact = get_classification_score(y_true=y_test, y_pred=y_pred)
-
-            save_object(file_path=self.model_trainer_config.trained_model_file_path, obj=model)
-
-            model_trainer_artifact = ModelTrainerArtifact(
-                trained_model_file_path=self.model_trainer_config.trained_model_file_path,
-                f1_score=classification_metric_artifact.f1_score,
-                precision_score=classification_metric_artifact.precision_score,
-                recall_score=classification_metric_artifact.recall_score
+            model_trainer_artifact = self.train_model(
+            x_train,
+            y_train,
+            x_test,
+            y_test
             )
 
             return model_trainer_artifact
