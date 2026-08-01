@@ -1,0 +1,11 @@
+[ 2026-08-01 21:25:51,299 ] 18 root - INFO - Initiate the data Ingestion
+[ 2026-08-01 21:25:53,622 ] 59 root - INFO - Performed Train Test Split
+[ 2026-08-01 21:25:53,622 ] 65 root - INFO - Exporting training and test data
+[ 2026-08-01 21:25:53,650 ] 71 root - INFO - Exported training and test data
+[ 2026-08-01 21:25:53,650 ] 24 root - INFO - Initiate the Data Validation
+[ 2026-08-01 21:25:53,669 ] 32 root - INFO - Required number of columns: 2
+[ 2026-08-01 21:25:53,669 ] 33 root - INFO - Data frame has columns : 31
+[ 2026-08-01 21:25:53,669 ] 32 root - INFO - Required number of columns: 2
+[ 2026-08-01 21:25:53,669 ] 33 root - INFO - Data frame has columns : 31
+[ 2026-08-01 21:25:53,756 ] 30 root - INFO - Initiate the Data Transformation
+[ 2026-08-01 21:25:53,772 ] 36 root - INFO - Initiate the Model Training
