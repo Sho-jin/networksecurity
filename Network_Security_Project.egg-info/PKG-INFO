@@ -13,6 +13,7 @@ Requires-Dist: pymongo[srv]==3.12
 Requires-Dist: certifi
 Requires-Dist: pyaml
 Requires-Dist: mlflow
+Requires-Dist: dagshub
 Dynamic: author
 Dynamic: author-email
 Dynamic: requires-dist
