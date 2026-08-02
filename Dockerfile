@@ -1,8 +1,16 @@
-FROM python:3.11-slim-buster
+FROM python:3.11-slim
+
 WORKDIR /app
+
 COPY . /app
 
-RUN apt update -y && apt install awscli -y
+RUN pip install --no-cache-dir --upgrade pip
 
-RUN apt-get update && pip insatll -r requirements.txt
-CMD [ "python3", "app.py" ]
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Install AWS CLI (if your project actually needs it)
+RUN pip install --no-cache-dir awscli
+
+EXPOSE 5000
+
+CMD ["python", "app.py"]
