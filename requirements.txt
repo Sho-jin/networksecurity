@@ -12,5 +12,6 @@ dagshub
 fastapi
 uvicorn
 Flask
+python-multipart
 
 -e . 
