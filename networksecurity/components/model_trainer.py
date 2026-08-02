@@ -18,16 +18,7 @@ from sklearn.tree import DecisionTreeClassifier
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.ensemble import RandomForestClassifier, GradientBoostingClassifier, AdaBoostClassifier
 
-import dagshub
-token = os.getenv("DAGSHUB_TOKEN")
 
-if token:
-    dagshub.init(
-        repo_owner="Sho-jin",
-        repo_name="networksecurity",
-        mlflow=True,
-        token=token
-    )
 
 class ModelTrainer:
     def __init__(self, model_trainer_config: ModelTrainerConfig, data_transformation_artifact: DataTransformationArtifact):
@@ -57,6 +48,13 @@ class ModelTrainer:
         
     def train_model(self, x_train, y_train,x_test, y_test):
         try:
+           
+           import dagshub
+           dagshub.init(
+                repo_owner="Sho-jin",
+                repo_name="networksecurity",
+                mlflow=True
+            )
            models = {
                "LogisticRegression": LogisticRegression(verbose=1),
                 "DecisionTreeClassifier": DecisionTreeClassifier(),
