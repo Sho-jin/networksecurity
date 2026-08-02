@@ -8,7 +8,11 @@ from dotenv import load_dotenv
 load_dotenv()
 
 mongo_db_url = os.getenv("MONGO_DB_URL")
-print(f"MongoDB URL: {mongo_db_url}")
+
+if not mongo_db_url:
+    raise ValueError("MONGO_DB_URL environment variable is not set.")
+
+print("MongoDB URL loaded successfully.")
 
 import pymongo
 

@@ -19,7 +19,15 @@ from sklearn.neighbors import KNeighborsClassifier
 from sklearn.ensemble import RandomForestClassifier, GradientBoostingClassifier, AdaBoostClassifier
 
 import dagshub
-dagshub.init(repo_owner='Sho-jin', repo_name='networksecurity', mlflow=True)
+token = os.getenv("DAGSHUB_TOKEN")
+
+if token:
+    dagshub.init(
+        repo_owner="Sho-jin",
+        repo_name="networksecurity",
+        mlflow=True,
+        token=token
+    )
 
 class ModelTrainer:
     def __init__(self, model_trainer_config: ModelTrainerConfig, data_transformation_artifact: DataTransformationArtifact):

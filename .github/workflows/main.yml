@@ -113,6 +113,7 @@ jobs:
                 -e AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }} \
                 -e AWS_REGION=us-east-1 \
                 -e MONGO_DB_URL="${{ secrets.MONGO_DB_URL }}" \
+                -e DAGSHUB_TOKEN=${{ secrets.DAGSHUB_TOKEN }} \
                 $ECR_REGISTRY/$ECR_REPOSITORY:latest
 
             - name: Verify Deployment
